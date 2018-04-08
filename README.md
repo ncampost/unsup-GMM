@@ -4,6 +4,8 @@ Here is a simple implementation of Gaussian Mixture Models to cluster unlabeled 
 
 ### Expectation-Maximization (EM) optimization
 
+### Todo: cluster on data not generated from Gaussians
+
 For these images, we generate data from actual/hidden Gaussian components and then model the resulting data with GMM.
 
 3 hidden clusters, modeling 3 clusters:
