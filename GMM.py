@@ -22,7 +22,7 @@ class GaussianMixtureModel:
 
 
         # Perform coordinate ascent until difference 
-        # in log-likelihood is small (here: < 1e-8)
+        # in log-likelihood is small (here: < 1e-1)
         init = False
         p = 0
         while True:
@@ -44,7 +44,6 @@ class GaussianMixtureModel:
             else:
                 oldLL = LL
                 LL = self.__calc_LL(X, Q, Pi, Mu, Sigma)
-                #print str(LL - oldLL)
                 if math.fabs(LL - oldLL) < 1e-1:
                     break
 
@@ -55,7 +54,6 @@ class GaussianMixtureModel:
                     Nprob = multivariate_normal.pdf(X[n], mean=Mu[:,k], cov=Sigma[k])
                     Q[n,k] = Pi[k] * Nprob
                 Q[n] /= np.sum(Q[n])
-            #print Q
 
         return Q
     
