@@ -4,7 +4,7 @@ Here is a simple implementation of Gaussian Mixture Models to cluster unlabeled 
 
 ### Expectation-Maximization (EM) optimization
 
-### Todo: cluster on data not generated from Gaussians
+### Ideal: Gaussian hidden classes (blobs)
 
 For these images, we generate [Gaussian blobs data](http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html#sklearn.datasets.make_blobs) with `hidden` number of classes and then model it data with GMM using `model` classes. `hidden` and `model` may not be the same (see below for results).
 
@@ -17,4 +17,14 @@ Also note that `make_blobs` may superimpose different blobs, so you may not visu
 ![5 hidden, 3 modeled](imgs/sample3.png)
 
 ![2 hidden, 3 modeled](imgs/sample4.png)
+
+## Circle data
+
+![4 modeled](imgs/sample5.png)
+
+## [Random classification data](http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)
+
+![2 hidden, 2 modeled](imgs/sample6.png)
+
+![2 hidden, 4 modeled](imgs/sample7.png)
 

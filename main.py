@@ -7,12 +7,14 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as c
 
 # Data generator
-from sklearn.datasets.samples_generator import make_blobs
+from sklearn.datasets.samples_generator import make_blobs, make_circles, make_classification
 
 def main():
     hidden_classes = 2
-    model_classes = 3
-    X, Y = make_blobs(n_samples=700, centers=hidden_classes)
+    model_classes = 2
+    #X, _ = make_blobs(n_samples=700, centers=hidden_classes)
+    #X, _ = make_circles(n_samples=700)
+    X, _ = make_classification(n_samples=600, n_features=2, n_informative=2, n_redundant=0, n_classes=hidden_classes)
 
     # Init and fit Gaussian Mixture Model
     GMM = GaussianMixtureModel()
