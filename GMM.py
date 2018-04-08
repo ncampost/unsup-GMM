@@ -10,6 +10,7 @@ class GaussianMixtureModel:
     # Returns Q, a N x K matrix, where Qnk is the probability
     # that X_n belongs to the kth class.
     def fit(self, X, K):
+        # init params
         N = X.shape[0]
         D = X.shape[1]
 
@@ -20,13 +21,7 @@ class GaussianMixtureModel:
         Z = KM.fit(X, K)
         Q = np.zeros((N, K))
         Q[np.arange(N), Z] = 1
-        
-        """
-        Q = np.random.rand(N, K)
-        for row in Q:
-            row /= np.sum(row)
-        """
-
+    
         # Perform coordinate ascent until difference 
         # in log-likelihood is small (here: < 1e-1)
         init = False
@@ -53,7 +48,6 @@ class GaussianMixtureModel:
                 if math.fabs(LL - oldLL) < 1e-1:
                     break
 
-            
             # Update optimal {Q} given fixed {Pi, Mu, Sigma}
             for n in range(N):
                 for k in range(K):

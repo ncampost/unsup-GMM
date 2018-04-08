@@ -23,9 +23,8 @@ class KMeans:
 			means[i] = X[randint]
 		del S
 
-
         # Perform coordinate ascent in {means}, {z} until
-        # algorithm has converged (there were no changes)
+        # algorithm has converged (there were no changes in {z})
 		while True:
 			j = 0
 			changed = False
