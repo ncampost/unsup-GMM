@@ -10,25 +10,46 @@ import matplotlib.colors as c
 from sklearn.datasets.samples_generator import make_blobs
 
 def main():
-    hidden_classes = 3
+    hidden_classes = 2
     model_classes = 3
-    X, Y = make_blobs(n_samples=300, centers=hidden_classes)
+    X, Y = make_blobs(n_samples=700, centers=hidden_classes)
 
     # Init and fit Gaussian Mixture Model
-    model = GaussianMixtureModel()
-    Q = model.fit(X, model_classes)
+    GMM = GaussianMixtureModel()
+    Q = GMM.fit(X, model_classes)
+    
 
     # Visualize data where we assign each X_n to
     # the class it has highest probability.
-    vis_data(X, np.argmax(Q, axis=1))
+    vis_data_shade(X, Q, model_classes, hidden_classes)
 
-# Simple vis_data. TODO: support shading where for each point
-# we shade class colors proportional to the probability that
-# the point belongs to that class.
-def vis_data(x,y):
-    # Add more colors here if model_classes > 4
-    cMap = c.ListedColormap(['r', 'b', 'g', 'm'])
-    plt.scatter(x[:,0], x[:,1], c=y, cmap=cMap, edgecolor='black')
+# Shades each point proportional to the probability that the point
+# belongs to that class.
+def vis_data_shade(X, Q, n_classes, hidden_classes):
+    # Use specific RGB values instead of discrete char identifiers if num_classes > 8
+    char_colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w']
+    rgb_colors = []
+    for i in range(n_classes):
+        rgb_colors.append(c.to_rgb(char_colors[i]))
+    rgb_colors = np.array(rgb_colors).flatten()
+    colorings = np.zeros((Q.shape[0], 3))
+    for n in range(Q.shape[0]):
+        for k in range(Q.shape[1]):
+            # Calculate R,G,B contributions
+            colorings[n,0] += Q[n,k]*rgb_colors[k*3]
+            colorings[n,1] += Q[n,k]*rgb_colors[k*3+1]
+            colorings[n,2] += Q[n,k]*rgb_colors[k*3+2]
+    
+
+    plt.scatter(X[:,0], X[:,1], c=colorings, edgecolor='black')
+    plt.title("Hidden classes: " + str(hidden_classes) + ". Modeled classes: " + str(n_classes) + ".")
+    plt.show()
+
+# Vis_data for discrete class assignments.
+def vis_data(X, Z):
+    # Use specific RGB values instead of discrete char identifiers if num_classes > 8
+    cMap = c.ListedColormap(['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w'])
+    plt.scatter(X[:,0], X[:,1], c=Z, cmap=cMap, edgecolor='black')
     plt.show()
 
 if __name__ == '__main__':

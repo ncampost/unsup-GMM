@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats import multivariate_normal
+from KM import KMeans
 import math
 
 class GaussianMixtureModel:
@@ -12,14 +13,19 @@ class GaussianMixtureModel:
         N = X.shape[0]
         D = X.shape[1]
 
-        # Initialize {q}, {pi, mu, Sigma}
-        # Here we just initialize Q randomly Unif[0,1] and normalize each row,
-        # and {pi, mu, Sigma} are implicit from Q, but it would be better to
-        # run K-means and use the result as an initialization.
+        # Initialize {Q}, {Pi, Mu, Sigma}.
+        # Here we run KMeans to cluster and use the result as an initialization of {Q},
+        # and {Pi, Mu, Sigma} are implicit from the resulting {Q}.
+        KM = KMeans()
+        Z = KM.fit(X, K)
+        Q = np.zeros((N, K))
+        Q[np.arange(N), Z] = 1
+        
+        """
         Q = np.random.rand(N, K)
         for row in Q:
             row /= np.sum(row)
-
+        """
 
         # Perform coordinate ascent until difference 
         # in log-likelihood is small (here: < 1e-1)
@@ -67,3 +73,8 @@ class GaussianMixtureModel:
                 sum += Q[n,k]*math.log(Pi[k])
                 sum += Q[n,k]*multivariate_normal.logpdf(X[n], mean=Mu[:,k], cov=Sigma[k])
         return sum
+    
+    # Softmax a row vector
+    def __softmax(self, row):
+        sum = np.sum(np.exp(row))
+        return np.exp(row) / sum
