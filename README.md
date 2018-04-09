@@ -32,7 +32,7 @@ Note one could transform this data to a polar (radius, angle) basis to cluster t
 
 Note the effect of using a probabilistic model as opposed to non-probablistic like K-means or HAC: the probabilistic views clusters in terms of density/variance, and since the green cluster has much higher variance/spread than the red cluster, the probability component extends further than the red, eventually clustering the bottom left point green. A non-prob model would likely not exhibit this behavior: K-means minimizes total distance from means and the point is closer to the red mean.
 
-However GMM very effectively captures blobs of different shapes as opposed to K-means which (for the Euclidean norm) mostly optimizes for circles of varying radius. (should add image to demonstrate what I mean)
+However GMM very effectively captures blobs of different shapes as opposed to K-means which (for the Euclidean norm) creates a linear boundary in feature space. (should add image to demonstrate what I mean)
 
 ![2 hidden, 4 modeled](imgs/sample7.png)
 
