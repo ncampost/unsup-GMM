@@ -6,13 +6,13 @@ class KMeans:
     def __init__(self):
         return
     
-    def fit(self, X, K):
-        # init params
+	def fit(self, X, K):
+		# init params
 		N = X.shape[0]
 		D = X.shape[1]
 		z = np.zeros(N, dtype=int)
 	
-        # Random restart: choose each mean to be a random member of X
+		# Random restart: choose each mean to be a random member of X
 		means = np.zeros((K, D))
 		S = []
 		for i in range(K):
@@ -23,8 +23,8 @@ class KMeans:
 			means[i] = X[randint]
 		del S
 
-        # Perform coordinate ascent in {means}, {z} until
-        # algorithm has converged (there were no changes in {z})
+		# Perform coordinate ascent in {means}, {z} until
+		# algorithm has converged (there were no changes in {z})
 		while True:
 			j = 0
 			changed = False
@@ -33,6 +33,8 @@ class KMeans:
 				mindist = 0
 				i = 0 
 				init = False
+				# TODO: use a more efficient structure to store distances as opposed
+				# to recalculating them every time.
 				for mean in means:
 					dist = np.linalg.norm(datum - mean)
 					if not init:
@@ -42,12 +44,12 @@ class KMeans:
 					elif dist < mindist:
 						argmin = i
 						mindist = dist
-					i += 1
+						i += 1
 
 				# Reassign point's class to the closest mean
 				if z[j] != argmin:
 					changed = True
-				z[j] = argmin
+					z[j] = argmin
 				j += 1
 			
 			# If no datum had its class reassigned, we have converged.
@@ -65,5 +67,5 @@ class KMeans:
 				sum_matr /= num_assigned
 				means[i] = sum_matr
         
-        # Return cluster classes.
+		# Return cluster classes.
 		return z
