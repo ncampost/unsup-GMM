@@ -4,7 +4,7 @@ Here is a simple implementation of Gaussian Mixture Models to cluster unlabeled 
 
 ### Expectation-Maximization (EM) optimization
 
-If the data were labeled, this model essentially reduces to a Gaussian generative classifier. But since the data are unlabeled, we can't work with the true classes of the data. To mitigate this we choose a number of classes/clusters to model the data to, `model`, and introduce a probability vector $q_n$ for each datum $x_n$ which contains the probability that $x_n$ belongs to each cluster. The images below shade each point according to the resulting $q_n$ that the optimization algorithm produces.
+If the data were labeled, this model essentially reduces to a Gaussian generative classifier. But since the data are unlabeled, we can't work with the true classes of the data. To mitigate this we choose a number of classes/clusters to model the data to, `model`, and introduce a probability vector q_n for each datum x_n which contains the probability that x_n belongs to each cluster. The images below shade each point according to the resulting q_n that the optimization algorithm produces.
 
 ### Ideal case for the model: Gaussian hidden classes (blobs)
 
@@ -24,7 +24,7 @@ Also note that `make_blobs` may superimpose different blobs, so you may not visu
 
 ![4 modeled](imgs/sample5.png)
 
-Note one could transform this data to a $(r,\theta)$ basis to cluster the inner and outer rings, which essentially reduces it to a blob case like above.
+Note one could transform this data to a polar (radius, angle) basis to cluster the inner and outer rings, which essentially reduces it to a blob case like above.
 
 ## [Random classification data](http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)
 
